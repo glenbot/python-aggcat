@@ -1,0 +1,4 @@
+.coverage
+*.pyc
+python_aggcat.egg-info
+build

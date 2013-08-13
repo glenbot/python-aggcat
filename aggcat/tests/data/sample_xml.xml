@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recipies>
+    <recipe>
+        <name>Fried Pickles</name>
+        <prepTime>15</prepTime>
+        <cookTime>30</cookTime>
+        <ingredients>
+            <ingredient>
+                <name>Flour</name>
+                <amount>1 cup</amount>
+            </ingredient>
+            <ingredient>
+                <name>Pickles</name>
+                <amount>2 cups</amount>
+            </ingredient>
+        </ingredients>
+    </recipe>
+    <recipe>
+        <name>Smoked Bacon</name>
+        <prepTime>5</prepTime>
+        <cookTime>10</cookTime>
+        <ingredients>
+            <ingredient>
+                <name>Bacon</name>
+                <amount>1 cup</amount>
+            </ingredient>
+            <ingredient>
+                <name>Wood Chips</name>
+                <amount>1/2 Bag</amount>
+            </ingredient>
+            <ingredient>
+                <name>Cavendars</name>
+                <amount>1 tsp</amount>
+            </ingredient>
+        </ingredients>
+    </recipe>
+</recipies>
