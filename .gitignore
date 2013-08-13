@@ -2,3 +2,4 @@
 *.pyc
 python_aggcat.egg-info
 build
+MANIFEST
