@@ -1,0 +1,4 @@
+lxml==3.2.1
+M2Crypto==0.21.1
+requests==1.2.0
+git+https://github.com/glenbot/python-oauth2.git
