@@ -115,7 +115,7 @@ class Objectify(object):
                 self._walk_and_objectify(child, new_obj)
         else:
             setattr(obj, self._clean_tag_name(element.tag), element.text)
-            
+
     def get_object(self):
         root_obj = self.obj
 
@@ -126,7 +126,7 @@ class Objectify(object):
         # return this one instead of the surrounding object. I am not
         # sure this is the desired result, but i'll leave it for now
         appended_attrs = [
-            k for k 
+            k for k
             in root_obj.__dict__.iterkeys()
             if not k.startswith('_') and not '_' in k
         ]

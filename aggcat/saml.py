@@ -109,7 +109,7 @@ class SAML(object):
         self.now = datetime.utcnow()
         self.iso_now = '%sZ' % self.now.isoformat()
         self.assertion_id = uuid4().hex
-        
+
     def assertion(self):
         """Generate and return a SAML assertion"""
         signed_digest_value = self._signed_digest_value()
@@ -132,5 +132,5 @@ class SAML(object):
             'iso_not_after': '%sZ' % (self.now + timedelta(minutes=10)).isoformat(),
             'signature': signature,
         })
- 
+
         return b64_assertion

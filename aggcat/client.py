@@ -31,7 +31,7 @@ class AggcatClient(object):
     :param string consumer_key: The OAuth consumer key given on the Intuit application page
     :param string consumer_secret: The OAuth consumer secret given on the Intuit application page
     :param string saml_identity_provider_id: The SAML identitity provider id given on the Intuit application page
-    :param integer customer_id: It can be any integer. Try using the database primary key of a user 
+    :param integer customer_id: It can be any integer. Try using the database primary key of a user
                         in your system or some other unique identifier such as a guid. If you are just
                         testing you can use whatever integer you want.
     :param string private_key: The absolute path to the generated x509 private key
@@ -203,7 +203,7 @@ class AggcatClient(object):
         for response in responses:
             xml_responses.append(
                 '<response xmlns="http://schema.intuit.com/platform/fdatafeed/challenge/v1">%s</response>' % response
-            ) 
+            )
 
         return xml % ''.join(xml_responses)
 
@@ -247,7 +247,7 @@ class AggcatClient(object):
                   'valueLengthMin': '1'}]
 
         The fields that are returned are already ordered by the `displayOrder` field. The `name` field
-        goes into the html input tags name attribute. The `mask` field will let you know if it's a 
+        goes into the html input tags name attribute. The `mask` field will let you know if it's a
         password field. The list above might convert to this html::
 
             <form method="POST" action="/login-to-bank/">
@@ -292,7 +292,7 @@ class AggcatClient(object):
             >>> institutions[0].institution_name
             'Carolina Foothills FCU Credit Card'
 
-        .. note:: 
+        .. note::
 
             This call takes a very long time! Once you get your ``institution_id``
             write it down so you don't forget it. Saving the output using
@@ -496,7 +496,7 @@ class AggcatClient(object):
 
     def get_login_accounts(self, login_id):
         """Get a list of account belonging to a login
-        
+
         :param integer login_id: Login id of the instiution. This can be retrieved from an account.
         :returns: :class:`AggcatResponse`
 
@@ -553,7 +553,7 @@ class AggcatClient(object):
         :param string start_date: the date you want the transactions to start in the format YYYY-MM-DD
         :param string end_date: (optional) the date you want the transactions to end in the format YYYY-MM-DD
         :returns: :class:`AggcatResponse`
-        
+
         ::
 
             >>> r = ac.get_account_transactions(400004540560, '2013-08-10', '2013-08-12')
@@ -614,7 +614,7 @@ class AggcatClient(object):
     def update_account_type(self, account_id, account_name, account_type):
         """Update an account's type
 
-        :param integer account_id: the id of an account retrieved from :meth:`get_login_accounts` 
+        :param integer account_id: the id of an account retrieved from :meth:`get_login_accounts`
             or :meth:`get_customer_accounts`.
         :param string account_name: See possible values for account names and types below
         :param string account_type: See possible values for account names and types below
@@ -781,7 +781,7 @@ class AggcatClient(object):
             query=query,
             headers=headers
         )
- 
+
     def delete_account(self, account_id):
         """Delete an account
 

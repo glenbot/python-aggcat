@@ -48,7 +48,7 @@ class TestClient(object):
     def test_client_setup(self):
         """Client Test: API parameters are setup"""
         consumer_key, consumer_secret, saml_identity_provider_id, \
-        customer_id, private_key = self.client_args
+            customer_id, private_key = self.client_args
 
         assert self.ac.consumer_key == consumer_key
         assert self.ac.consumer_secret == consumer_secret
@@ -162,7 +162,7 @@ class TestClient(object):
         assert self.ac._build_url('institutions', {}) == \
             '%s/%s' % (self.base_url, 'institutions')
         assert self.ac._build_url('institutions', {'a': 1, 'b': 2}) == \
-            '%s/%s?a=1&b=2' % (self.base_url, 'institutions') 
+            '%s/%s?a=1&b=2' % (self.base_url, 'institutions')
 
     @raises(ValueError)
     def test_y0_credentials_validation_failure(self):
