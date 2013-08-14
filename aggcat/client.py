@@ -545,13 +545,13 @@ class AggcatClient(object):
         """
         return self._make_request('accounts/%s' % account_id)
 
-    def get_account_transactions(self, account_id, start_date, end_date):
+    def get_account_transactions(self, account_id, start_date, end_date=None):
         """Get specific account transactions from a date range
 
         :param integer account_id: the id of an account retrieved from :meth:`get_login_accounts`
             or :meth:`get_customer_accounts`.
         :param string start_date: the date you want the transactions to start in the format YYYY-MM-DD
-        :param string end_date: the date you want the transactions to end in the format YYYY-MM-DD
+        :param string end_date: (optional) the date you want the transactions to end in the format YYYY-MM-DD
         :returns: :class:`AggcatResponse`
         
         ::
@@ -572,13 +572,19 @@ class AggcatClient(object):
         .. note::
             Attributes on transactions very depending on transaction type. See `transaction reference
             in the Intuit documentation <https://developer.intuit.com/docs/0020_customeraccountdata/customer_account_data_api/0020_api_documentation/0030_getaccounttransactions>`_.
-            Also note that when the XML gets objectified XML attributes like ``totalAmount`` get converted
-            to ``total_amount``
+            When the XML gets objectified XML attributes like ``totalAmount`` get converted
+            to ``total_amount``. This endpoint is not ordered by the date of transaction.
         """
         query = {
             'txnStartDate': start_date,
-            'txnEndDate': end_date
         }
+
+        # add the end date if provided
+        if end_date:
+            query.update({
+                'txnEndDate': end_date
+            })
+
         return self._make_request(
             'accounts/%s/transactions' % account_id,
             query=query
