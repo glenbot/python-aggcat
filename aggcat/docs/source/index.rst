@@ -115,3 +115,5 @@ User's Guide
    :maxdepth: 3
 
    api
+
+.. include:: release_notes.rst
