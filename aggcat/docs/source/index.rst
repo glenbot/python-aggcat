@@ -26,6 +26,13 @@ Installation
     pip install python-aggcat
 
 
+.. _known_issues:
+
+Known Issues
+------------
+
+The SSL library in Python 2.6 and below has a bug and will not parse the ``AlternativeNames`` out of the Intuit SSL cert causing a name mismatch during cetificate validation. For now, please pass ``verify_ssl = False`` to the :class:`AggcatClient` when initializing it. While less secure, I wanted the verification to be turned off explictly so you are aware. If possible, upgrade to Python 2.7+.
+
 Initializing the API Client
 ---------------------------
 

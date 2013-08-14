@@ -2,7 +2,11 @@ from __future__ import absolute_import
 
 import re
 from lxml import etree
-from collections import Counter
+
+try:
+    from collections import Counter
+except ImportError:
+    from .counter import Counter
 
 from .utils import remove_namespaces
 

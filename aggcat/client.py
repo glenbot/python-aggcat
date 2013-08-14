@@ -1,10 +1,9 @@
 from __future__ import absolute_import
 
 import urlparse
-from urllib import urlencode
 
 import requests
-import oauth2
+from requests_oauthlib import OAuth1Session
 from lxml import etree
 
 from .saml import SAML
@@ -15,14 +14,14 @@ from .helpers import AccountType
 
 
 class AggCatResponse(object):
-    """General response object that contains oAuth2 response object
-    and the content"""
-    def __init__(self, headers, content):
-        self.headers = headers
+    """General response object that contains the HTTP status code
+    and response text"""
+    def __init__(self, status_code, content):
+        self.status_code = status_code
         self.content = content
 
     def __repr__(self):
-        return u'<AggCatResponse %s>' % self.headers.status
+        return u'<AggCatResponse %s>' % self.status_code
 
 
 class AggcatClient(object):
@@ -36,6 +35,7 @@ class AggcatClient(object):
                         testing you can use whatever integer you want.
     :param string private_key: The absolute path to the generated x509 private key
     :param boolean objectify: (optional) Convert XML into pythonic object on every API call. Default: ``True``
+    :param boolean verify_ssl: (optional) Verify SSL Certificate. See :ref:`known_issues`. Default: ``True``
 
     :returns: :class:`AggcatClient`
 
@@ -61,7 +61,7 @@ class AggcatClient(object):
         ``objectify`` (Boolean) This is a BETA functionality. It will objectify the XML returned from
         intuit into standard python objects so you don't have to mess with XML. Default: ``True``
     """
-    def __init__(self, consumer_key, consumer_secret, saml_identity_provider_id, customer_id, private_key, objectify=True):
+    def __init__(self, consumer_key, consumer_secret, saml_identity_provider_id, customer_id, private_key, objectify=True, verify_ssl=True):
         # base API url
         self.base_url = 'https://financialdatafeed.platform.intuit.com/rest-war/v1'
 
@@ -71,6 +71,9 @@ class AggcatClient(object):
         self.saml_identity_provider_id = saml_identity_provider_id
         self.customer_id = customer_id
         self.private_key = private_key
+
+        # verify ssl
+        self.verify_ssl = verify_ssl
 
         # SAML object to help create SAML assertion message
         self.saml = SAML(private_key, saml_identity_provider_id, customer_id)
@@ -88,17 +91,15 @@ class AggcatClient(object):
         self.client = self._client()
 
     def _client(self):
-        """Build an oAuth2 client from consumer tokens, and oauth tokens"""
-        consumer = oauth2.Consumer(
-            key=self.consumer_key,
-            secret=self.consumer_secret
+        """Build an oAuth client from consumer tokens, and oauth tokens"""
+        # initialze the oauth session for requests
+        session = OAuth1Session(
+            self.consumer_key,
+            self.consumer_secret,
+            self._oauth_tokens['oauth_token'][0],
+            self._oauth_tokens['oauth_token_secret'][0]
         )
-        token = oauth2.Token(
-            key=self._oauth_tokens['oauth_token'][0],
-            secret=self._oauth_tokens['oauth_token_secret'][0]
-        )
-
-        return oauth2.Client(consumer, token)
+        return session
 
     def _get_oauth_tokens(self):
         """Get an oauth token by sending over the SAML assertion"""
@@ -123,48 +124,51 @@ class AggcatClient(object):
         # get a new client
         self.client = self._client()
 
-    def _build_url(self, path, query):
-        """Build a url from a string path and dict query"""
-        if query:
-            return '%s/%s?%s' % (self.base_url, path, urlencode(query))
-        else:
-            return '%s/%s' % (self.base_url, path)
+    def _build_url(self, path):
+        """Build a url from a string path"""
+        return '%s/%s' % (self.base_url, path)
 
     def _make_request(self, path, method='GET', body=None, query={}, headers={}):
         """Make the signed request to the API"""
-        url = self._build_url(path, query)
+        # build the query url
+        url = self._build_url(path)
 
         # check for plain object request
         return_obj = self.objectify
 
-        if method == 'GET' or method == 'DELETE':
-            response, content = self.client.request(url, method)
-        else:
+        if method == 'GET':
+            response = self.client.get(url, params=query, verify=self.verify_ssl)
+
+        if method == 'PUT':
             headers.update({'Content-Type': 'application/xml'})
-            response, content = self.client.request(
-                url,
-                method=method,
-                body=body,
-                headers=headers,
-                realm=None
-            )
+            response = self.client.put(url, data=body, headers=headers, verify=self.verify_ssl)
+
+        if method == 'DELETE':
+            response = self.client.delete(url, verify=self.verify_ssl)
+
+        if method == 'POST':
+            headers.update({'Content-Type': 'application/xml'})
+            response = self.client.post(url, data=body, headers=headers, verify=self.verify_ssl)
 
         # refresh the token if token expires and retry the query
-        if 'www-authenticate' in response and response['www-authenticate'] == \
-            'OAuth oauth_problem="token_rejected"':
-            self._refresh_client()
-            self._make_request(path, method, body, query, headers)
+        if 'www-authenticate' in response.headers:
+            if response.headers['www-authenticate'] == 'OAuth oauth_problem="token_rejected"':
+                self._refresh_client()
+                self._make_request(path, method, body, query, headers)
 
-        if response.status not in [200, 201, 401]:
-            raise HTTPError('Status Code: %s, Response %s' % (response.status, content,))
+        if response.status_code not in [200, 201, 401]:
+            raise HTTPError('Status Code: %s, Response %s' % (response.status_code, response.text,))
 
         if return_obj:
             try:
-                return AggCatResponse(response, Objectify(content).get_object())
+                return AggCatResponse(
+                    response.status_code,
+                    Objectify(response.content).get_object()
+                )
             except etree.XMLSyntaxError:
                 return None
 
-        return AggCatResponse(response, content)
+        return AggCatResponse(response.status_code, response.content)
 
     def _remove_namespaces(self, tree):
         """Remove the namspaces from the Intuit XML for easier parsing"""

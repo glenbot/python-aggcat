@@ -159,10 +159,8 @@ class TestClient(object):
 
     def test_url_building(self):
         """Client Test: URL building"""
-        assert self.ac._build_url('institutions', {}) == \
+        assert self.ac._build_url('institutions') == \
             '%s/%s' % (self.base_url, 'institutions')
-        assert self.ac._build_url('institutions', {'a': 1, 'b': 2}) == \
-            '%s/%s?a=1&b=2' % (self.base_url, 'institutions')
 
     @raises(ValueError)
     def test_y0_credentials_validation_failure(self):
