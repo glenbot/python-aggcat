@@ -1,5 +1,7 @@
 # Aggcat
 
+[![PyPI version](https://badge.fury.io/py/python-aggcat.png)](http://badge.fury.io/py/python-aggcat)
+
 Python client for Intuit Customer Account Data APIs
 
 ## Installation
