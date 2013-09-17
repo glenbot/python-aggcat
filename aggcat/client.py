@@ -578,6 +578,9 @@ class AggcatClient(object):
             in the Intuit documentation <https://developer.intuit.com/docs/0020_customeraccountdata/customer_account_data_api/0020_api_documentation/0030_getaccounttransactions>`_.
             When the XML gets objectified XML attributes like ``totalAmount`` get converted
             to ``total_amount``. This endpoint is not ordered by the date of transaction.
+
+            **Pending** transactions are unstable, the transaction id will change once the it has
+            posted so it is difficult to correlate a once pending transaction with its posted one.
         """
         query = {
             'txnStartDate': start_date,

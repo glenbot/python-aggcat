@@ -78,9 +78,9 @@ If you are using the ``objectify = True`` keyword argument on the client you can
 ::
     
     >>> institutions = client.get_institutions()
-    >>> len(institutions)
+    >>> len(institutions.content)
     18716
-    >>> institutions[0].institution_name
+    >>> institutions.content[0].institution_name
     'Carolina Foothills FCU Credit Card'
 
 Searching for your institution
@@ -107,10 +107,12 @@ If you are using the ``objectify = True`` keyword argument on the client you can
 
     >>> institution = client.get_institution_details(13278)
     >>> institution
-    <Institutiondetail object @ 0x110389990>
-    >>> institution.institution_name
+    <AggCatResponse 200>
+    >>> institution.content
+    <Institutiondetail object @ 0x10ddfa4d0>
+    >>> institution.content.institution_name
     'JP Morgan Chase Bank'
-    >>> institution.home_url
+    >>> institution.content.home_url
     'https://www.chase.com/'
     >>> institution.currency_code
     'USD'

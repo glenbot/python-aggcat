@@ -15,7 +15,7 @@ Currently finding an institution is somewhat of a manual process. Soon, there wi
     search_string = 'Chase'
     institutions = client.get_institutions()
 
-    xml = etree.fromstring(institutions.to_xml())
+    xml = etree.fromstring(institutions.content.to_xml())
     xml = etree.fromstring(remove_namespaces(xml))
 
     for element in xml.xpath('./institution[contains(., "chase")]'):
