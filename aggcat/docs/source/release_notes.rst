@@ -1,6 +1,10 @@
 Release Notes
 -------------
 
+**0.4**
+
+* Updates to the docs
+
 **0.3**
 
 * Switched oAuth backend from ``oAuth2`` to ``requests-oauthlib`` because it is maintained and causing less issues. Plus, requests is awesome ;)

@@ -12,7 +12,7 @@ Python client for Intuit Customer Account Data APIs
 `See full documentation for quickstart <https://aggcat.readthedocs.org/en/latest/>`_
 """
 from distutils.core import setup
-__version__ = "0.3"
+__version__ = "0.4"
 
 
 setup(
