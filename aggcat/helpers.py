@@ -9,44 +9,44 @@ class AccountType(object):
 
         self._types = {
             'banking': [
-                'checking',
-                'savings',
-                'moneymrkt',
-                'cd',
-                'cashmanagement',
-                'overdraft'
+                'CHECKING'
+                'SAVINGS',
+                'MONEYMRKT',
+                'CD',
+                'CASHMANAGEMENT',
+                'OVERDRAFT'
             ],
             'credit': [
-                'creditcard',
-                'lineofcredit',
-                'other'
+                'CREDITCARD',
+                'LINEOFCREDIT',
+                'OTHER'
             ],
             'loan': [
-                'loan',
-                'auto',
-                'commercial',
-                'constr',
-                'consumer',
-                'homeequity',
-                'military',
-                'mortgage',
-                'smb',
-                'student'
+                'LOAN',
+                'AUTO',
+                'COMMERCIAL',
+                'CONSTR',
+                'CONSUMER',
+                'HOMEEQUITY',
+                'MILITARY',
+                'MORTGAGE',
+                'SMB',
+                'STUDENT'
             ],
-            'investement': [
-                'taxable',
-                '401k',
-                'brokerage',
-                'ira',
-                '403b',
-                'keogh',
-                'trust',
-                'tda',
-                'simple',
-                'normal',
-                'sarsep',
-                'ugma',
-                'other',
+            'investment': [
+                'TAXABLE',
+                '401K',
+                'BROKERAGE',
+                'IRA',
+                '403B',
+                'KEOGH',
+                'TRUST',
+                'TDA',
+                'SIMPLE',
+                'NORMAL',
+                'SARSEP',
+                'UGMA',
+                'OTHER',
             ]
         }
 
@@ -55,7 +55,7 @@ class AccountType(object):
         if self.account_name not in self._types.keys():
             raise ValueError('Account name could not be found. Please use on of the following values %s' % self._types.keys())
 
-        if self.account_type not in self._types[self.account_name]:
+        if self.account_type.upper() not in self._types[self.account_name]:
             raise ValueError('Account type could not be found. Valid account types for "%s" are %s' % (self.account_name, self._types[self.account_name],))
 
     def to_xml(self):
