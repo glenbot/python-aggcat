@@ -1,6 +1,10 @@
 Release Notes
 -------------
 
+**0.5**
+
+* Updated helpers to use uppercase values in the XML when updating account type
+
 **0.4**
 
 * Updates to the docs
