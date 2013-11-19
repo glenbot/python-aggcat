@@ -9,7 +9,7 @@ class AccountType(object):
 
         self._types = {
             'banking': [
-                'CHECKING'
+                'CHECKING',
                 'SAVINGS',
                 'MONEYMRKT',
                 'CD',
@@ -46,7 +46,7 @@ class AccountType(object):
                 'NORMAL',
                 'SARSEP',
                 'UGMA',
-                'OTHER',
+                'OTHER'
             ]
         }
 
