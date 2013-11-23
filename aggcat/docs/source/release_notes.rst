@@ -1,6 +1,11 @@
 Release Notes
 -------------
 
+**0.6**
+
+* Fixed a missing comma in helpers
+* Added headers to the AggCat Response object
+
 **0.5**
 
 * Updated helpers to use uppercase values in the XML when updating account type
