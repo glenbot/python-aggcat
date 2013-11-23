@@ -16,8 +16,9 @@ from .helpers import AccountType
 class AggCatResponse(object):
     """General response object that contains the HTTP status code
     and response text"""
-    def __init__(self, status_code, content):
+    def __init__(self, status_code, headers, content):
         self.status_code = status_code
+        self.headers = headers
         self.content = content
 
     def __repr__(self):
@@ -163,6 +164,7 @@ class AggcatClient(object):
             try:
                 return AggCatResponse(
                     response.status_code,
+                    response.headers,
                     Objectify(response.content).get_object()
                 )
             except etree.XMLSyntaxError:
