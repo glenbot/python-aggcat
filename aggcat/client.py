@@ -170,7 +170,12 @@ class AggcatClient(object):
             except etree.XMLSyntaxError:
                 return None
 
-        return AggCatResponse(response.status_code, response.content)
+        return AggCatResponse(
+            response.status_code,
+            response.headers,
+            response.content
+        )
+
 
     def _remove_namespaces(self, tree):
         """Remove the namspaces from the Intuit XML for easier parsing"""
