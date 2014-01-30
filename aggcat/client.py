@@ -168,7 +168,10 @@ class AggcatClient(object):
                     Objectify(response.content).get_object()
                 )
             except etree.XMLSyntaxError:
-                return None
+                # this errors happens when the response is blank
+                # in case of this error or others in the objectifier
+                # pass and give the response unobjectified
+                pass
 
         return AggCatResponse(
             response.status_code,
