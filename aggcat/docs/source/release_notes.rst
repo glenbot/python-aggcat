@@ -1,6 +1,10 @@
 Release Notes
 -------------
 
+**0.7**
+
+* Fixed an issue where responses that came back empty would return None instead of an AggcatResponse object
+
 **0.6**
 
 * Fixed a missing comma in helpers
