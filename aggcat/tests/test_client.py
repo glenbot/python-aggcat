@@ -243,7 +243,10 @@ class TestClient(object):
         """Client Test: Delete account"""
         accounts = self.ac.get_customer_accounts()
 
-        assert self.ac.delete_account(accounts.content[0].account_id) == None
+        r = self.ac.delete_account(accounts.content[0].account_id)
+
+        assert r.content == ''
+        assert r.status_code == 200
 
     def test_z08_get_login_accounts(self):
         """Client Test: Get login accounts"""
@@ -279,25 +282,41 @@ class TestClient(object):
         """Client Test: Update institution login"""
         accounts = self.ac.get_customer_accounts()
 
-        assert self.ac.update_institution_login(
+        r = self.ac.update_institution_login(
             self.institution_id,
             accounts.content[0].institution_login_id,
             **{
             'Banking Userid': 'direct',
             'Banking Password': 'anyvalue'
-        }) == None
+        })
+
+        assert r.content == ''
+        assert r.status_code == 200
+
+    @raises(HTTPError)
+    def test_z13_update_institution_login(self):
+        """Client Test: Update institution login"""
+        accounts = self.ac.get_customer_accounts()
+
+        self.ac.update_institution_login(
+            self.institution_id,
+            accounts.content[0].institution_login_id,
+            **{
+            'Banking Userid': '',
+            'Banking Password': ''
+        })
 
     @raises(NotImplementedError)
-    def test_z13_list_files(self):
+    def test_z14_list_files(self):
         """Client Test: List files"""
         self.ac.list_files()
 
     @raises(NotImplementedError)
-    def test_z14_get_file_data(self):
+    def test_z15_get_file_data(self):
         """Client Test: Get file data"""
         self.ac.get_file_data('fake_file_name.gz')
 
     @raises(NotImplementedError)
-    def test_z15_delete_file(self):
+    def test_z16_delete_file(self):
         """Client Test: Delete file"""
         self.ac.delete_file('fake_file_name.gz')
