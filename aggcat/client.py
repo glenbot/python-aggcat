@@ -142,14 +142,14 @@ class AggcatClient(object):
 
         if method == 'PUT':
             headers.update({'Content-Type': 'application/xml'})
-            response = self.client.put(url, data=body, headers=headers, verify=self.verify_ssl)
+            response = self.client.put(url, params=query, data=body, headers=headers, verify=self.verify_ssl)
 
         if method == 'DELETE':
             response = self.client.delete(url, verify=self.verify_ssl)
 
         if method == 'POST':
             headers.update({'Content-Type': 'application/xml'})
-            response = self.client.post(url, data=body, headers=headers, verify=self.verify_ssl)
+            response = self.client.post(url, params=query, data=body, headers=headers, verify=self.verify_ssl)
 
         # refresh the token if token expires and retry the query
         if 'www-authenticate' in response.headers:
