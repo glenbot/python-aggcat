@@ -1,6 +1,11 @@
 Release Notes
 -------------
 
+**0.8**
+
+* Added missing query parameters to post and put update so refreshes work correctly.
+* Updated tests
+
 **0.7**
 
 * Fixed an issue where responses that came back empty would return None instead of an AggcatResponse object
