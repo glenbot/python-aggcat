@@ -793,7 +793,7 @@ class AggcatClient(object):
 
         return self._make_request(
             'logins/%s' % login_id,
-            'POST',
+            'PUT',
             xml,
             query=query,
             headers=headers
