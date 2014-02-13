@@ -1,6 +1,10 @@
 Release Notes
 -------------
 
+**0.9**
+
+* Fixed the challenge update method
+
 **0.8**
 
 * Added missing query parameters to post and put update so refreshes work correctly.
