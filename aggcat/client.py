@@ -273,7 +273,10 @@ class AggcatClient(object):
         fields = []
 
         response = self.get_institution_details(institution_id)
-        t = etree.fromstring(response.content.to_xml())
+        if self.objectify:
+            t = etree.fromstring(response.content.to_xml())
+        else:
+            t = etree.fromstring(response.content)
 
         # remove all the namespaces for easier parsing and get all the keys
         t = etree.fromstring(self._remove_namespaces(t))
