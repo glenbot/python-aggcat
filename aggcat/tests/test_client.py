@@ -7,6 +7,7 @@ from datetime import datetime
 
 from ..client import AggcatClient
 from ..exceptions import HTTPError
+from ..xml_parser import XmlObjectify
 
 from nose.tools import raises, nottest
 
@@ -34,7 +35,7 @@ class TestClient(object):
             client_config.get('aggcat', 'private_key'),
         )
 
-        self.ac = AggcatClient(*self.client_args, objectify=True)
+        self.ac = AggcatClient(*self.client_args, objectify = XmlObjectify)
 
     @classmethod
     def teardown_class(self):
