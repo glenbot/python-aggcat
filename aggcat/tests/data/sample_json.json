@@ -1,0 +1,38 @@
+{
+"recipies": [
+	{
+		"name": "Fried Pickles",
+		"prepTime": "15",
+		"cookTime": "30",
+		"ingredients": [
+			{
+				"name": "Flour",
+				"amount": "1 cup"
+			},
+			{
+				"name": "Pickles",
+				"amount": "2 cups"
+			}
+		]
+	},
+	{
+		"name": "Smoked Bacon",
+		"prepTime": "5",
+		"cookTime": "10",
+		"ingredients":  [
+			{
+				"name": "Bacon",
+				"amount": "1 cup"
+			},
+			{
+				"name": "Wood Chips",
+				"amount": "1/2 Bag"
+			},
+			{
+				"name": "Cavendars",
+				"amount": "1 tsp"
+			}
+		]
+	}
+]
+}
