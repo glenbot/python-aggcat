@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import json
 
-from .parser import ObjectifyBase
+from .base import ObjectifyBase
 
 __all__ = ['JsonObjectify']
 

@@ -9,9 +9,9 @@ from lxml import etree
 from .saml import SAML
 from .exceptions import HTTPError
 from .utils import remove_namespaces
-from .xml_parser import XmlObjectify
+from .parsers import XmlObjectify
 from .helpers import AccountType
-from .parser import ObjectifyBase
+from .parsers.base import ObjectifyBase
 
 
 class AggCatResponse(object):

@@ -7,8 +7,11 @@ try:
 except ImportError:
     from .counter import Counter
 
-from .utils import remove_namespaces
-from .parser import ObjectifyBase
+from ..utils import remove_namespaces
+from .base import ObjectifyBase
+
+
+__all__ = ['XmlObjectify']
 
 
 def _get_item(self, index):

@@ -7,7 +7,7 @@ from datetime import datetime
 
 from ..client import AggcatClient
 from ..exceptions import HTTPError
-from ..xml_parser import XmlObjectify
+from ..parsers import XmlObjectify
 
 from nose.tools import raises, nottest
 
@@ -35,7 +35,7 @@ class TestClient(object):
             client_config.get('aggcat', 'private_key'),
         )
 
-        self.ac = AggcatClient(*self.client_args, objectify = XmlObjectify)
+        self.ac = AggcatClient(*self.client_args, objectify=XmlObjectify)
 
     @classmethod
     def teardown_class(self):
@@ -287,9 +287,9 @@ class TestClient(object):
             self.institution_id,
             accounts.content[0].institution_login_id,
             **{
-            'Banking Userid': 'direct',
-            'Banking Password': 'anyvalue'
-        })
+                'Banking Userid': 'direct',
+                'Banking Password': 'anyvalue'
+            })
 
         assert r.content == ''
         assert r.status_code == 200
@@ -303,9 +303,9 @@ class TestClient(object):
             self.institution_id,
             accounts.content[0].institution_login_id,
             **{
-            'Banking Userid': '',
-            'Banking Password': ''
-        })
+                'Banking Userid': '',
+                'Banking Password': ''
+            })
 
     @raises(NotImplementedError)
     def test_z14_list_files(self):

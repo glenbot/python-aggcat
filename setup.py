@@ -29,7 +29,8 @@ setup(
   version = __version__,
   platforms = ['Linux'],
   packages = [
-    'aggcat'
+    'aggcat',
+    'aggcat.parsers'
   ],
   install_requires = [
     'lxml==3.2.1',
