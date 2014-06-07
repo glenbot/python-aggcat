@@ -63,7 +63,7 @@ class AggcatClient(object):
         ``objectify``  This is a BETA functionality. It will objectify the response returned from
         intuit into standard python objects so you don't have to mess with XML. Default: ``True``
     """
-    def __init__(self, consumer_key, consumer_secret, saml_identity_provider_id, customer_id, private_key, objectify = XmlObjectify, verify_ssl = True):
+    def __init__(self, consumer_key, consumer_secret, saml_identity_provider_id, customer_id, private_key, objectify=XmlObjectify, verify_ssl=True):
         # base API url
         self.base_url = 'https://financialdatafeed.platform.intuit.com/rest-war/v1'
 
@@ -140,21 +140,21 @@ class AggcatClient(object):
         # check for plain object request
         return_obj = self.objectify
         if return_obj:
-            headers.update({'Accept' : return_obj.application_type})
+            headers.update({'Accept': return_obj.application_type})
 
         if method == 'GET':
-            response = self.client.get(url, params = query, headers = headers, verify = self.verify_ssl)
+            response = self.client.get(url, params=query, headers=headers, verify=self.verify_ssl)
 
         if method == 'PUT':
             headers.update({'Content-Type': 'application/xml'})
-            response = self.client.put(url, params = query, data = body, headers = headers, verify = self.verify_ssl)
+            response = self.client.put(url, params=query, data=body, headers=headers, verify=self.verify_ssl)
 
         if method == 'DELETE':
-            response = self.client.delete(url, headers = headers, verify = self.verify_ssl)
+            response = self.client.delete(url, headers=headers, verify=self.verify_ssl)
 
         if method == 'POST':
             headers.update({'Content-Type': 'application/xml'})
-            response = self.client.post(url, params = query, data = body, headers = headers, verify = self.verify_ssl)
+            response = self.client.post(url, params=query, data=body, headers=headers, verify=self.verify_ssl)
 
         # refresh the token if token expires and retry the query
         if 'www-authenticate' in response.headers:
@@ -183,7 +183,6 @@ class AggcatClient(object):
             response.headers,
             response.content
         )
-
 
     def _remove_namespaces(self, tree):
         """Remove the namspaces from the Intuit XML for easier parsing"""

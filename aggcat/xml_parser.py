@@ -10,6 +10,7 @@ except ImportError:
 from .utils import remove_namespaces
 from .parser import ObjectifyBase
 
+
 def _get_item(self, index):
     return self._list[index]
 
@@ -38,7 +39,7 @@ class XmlObjectify(ObjectifyBase):
     """
     application_type = 'application/xml'
     error_type = etree.XMLSyntaxError
-    
+
     def __init__(self, xml):
         # raw xml
         self.xml = xml
@@ -58,7 +59,7 @@ class XmlObjectify(ObjectifyBase):
         else:
             self._walk_and_objectify(self.tree, self.obj)
 
-    def _create_object(self, name, attributes = None):
+    def _create_object(self, name, attributes=None):
         """Dynamically create an object"""
         if attributes is None:
             attributes = {}
@@ -80,7 +81,7 @@ class XmlObjectify(ObjectifyBase):
     def _is_list_xml(self, element):
         """Detect if the next set of XML elements contain duplicates
         which means it is a listable set of elements"""
-        tags = [ e.tag for e in element.xpath('./*')]
+        tags = [e.tag for e in element.xpath('./*')]
         return any(count > 1 for count in Counter(tags).values())
 
     def _walk_and_objectify(self, element, obj):
