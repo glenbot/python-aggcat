@@ -454,7 +454,7 @@ class AggcatClient(object):
             >>> challenge_session_id = r.headers['challengesessionid']
             >>> challenge_node_id = r.headers['challengenodeid']
             >>> responses = ['Black Cat', 'Meow High School']
-            >>> accounts = r.confirm_challenge(
+            >>> accounts = client.confirm_challenge(
                     1000000,
                     challenge_session_id,
                     challenge_node_id,
